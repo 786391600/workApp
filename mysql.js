@@ -16,8 +16,19 @@ fs.stat("flag.txt",function(error,info){
         username varchar(255),
         password varchar(32)
         ) default charset utf8`,function(){
-                   db.query(`insert into admin (username,password) values ('张三',MD5('123456'))`)
-                   fs.writeFile("flag.txt","数据库不能重复创建")
+                   db.query(`insert into admin (username,password) values ('张三',MD5('123456'))`,function(){
+                       db.query(`create table user (
+        id int(11) primary key auto_increment,
+        name varchar(255),
+        pass varchar(32),
+        phone varchar(32),
+        email varchar(32)
+        ) default charset utf8`,function(){
+                           fs.writeFile("flag.txt","数据库不能重复创建")
+                       })
+
+
+                   })
                });
            })
 
