@@ -1,5 +1,6 @@
 var mysql = require("mysql");
 var fs=require("fs");
+
 fs.stat("flag.txt",function(error,info){
    if(!error){
         console.log("数据库已经存在")
