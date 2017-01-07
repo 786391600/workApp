@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use("/login",login);
 app.use('/admin',function(req,res,next){
-    if(req.session.login){
+    if(req.session.login=="yes"){
         next();
     }else{
         res.redirect("/login");
