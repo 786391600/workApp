@@ -60,19 +60,78 @@ angular.module("controllers",["services"])
     }
 }]).controller("todoadd",["$scope","todoData",function($scope,todoData){
         $scope.data=todoData;
+    //todo保存
         $scope.save=function(){
-         var con=document.querySelector(".todocon").innerHTML;
+
+         var con=document.querySelector(".todocon").innerHTML.replace(/\s*/g,"");
+
+            if(!con){
+                alert("内容为空不能保存");
+                return;
+            }
          var conObj={con:con,id:getMaxId($scope.data)+1};
          $scope.data.push(conObj);
          localStorage.todo=JSON.stringify($scope.data);
          location.href="#!/todo"
         }
 
+       //todo关闭
+        $scope.close=function(){
+            var con=document.querySelector(".todocon").innerHTML.replace(/\s*/g,"");
+            var yes=window.confirm("确认关闭吗?");
+            if(yes){
+                location.href="#!/todo"
+            }
+
+        }
+
         function getMaxId(con){
             return con.length>0?con.sort(function(a,b){
                     return a.id>b.id;
                 })[con.length-1].id:0;
-
         }
-    }]);
+    }]).controller("edit",["$scope","todoData","$routeParams",function($scope,todoData,$routeParams){
+    var id=$routeParams.id;
+
+    $scope.data=todoData;
+
+    for(var i=0;i<$scope.data.length;i++){
+        if($scope.data[i].id==id){
+          $scope.current=$scope.data[i];
+        }
+    }
+
+    $scope.save=function(){
+        var con=document.querySelector(".todocon").innerHTML.replace(/\s*/g,"");
+        //修改为空
+        if(!con){
+            for(var i=0;i<$scope.data.length;i++){
+                if($scope.data[i].id==id){
+                    $scope.data.splice(i,1);
+                }
+            }
+        }else{//不为空
+            for(var i=0;i<$scope.data.length;i++){
+                if($scope.data[i].id==id){
+                    $scope.data[i].con=con;
+                }
+            }
+        }
+        localStorage.todo=JSON.stringify($scope.data);
+        location.href="#!/todo"
+    }
+
+    //todo关闭
+    $scope.close=function(){
+        var con=document.querySelector(".todocon").innerHTML.replace(/\s*/g,"");
+        var yes=window.confirm("确认关闭吗?");
+        if(yes){
+            location.href="#!/todo"
+        }
+
+    }
+
+
+
+}])
 

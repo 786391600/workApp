@@ -15,5 +15,8 @@ angular.module("routes",["ngRoute"])
         }).when("/todo/add",{
             templateUrl:"/tpl/todoadd.html",
             controller:"todoadd"
+        }).when("/edit/:id",{
+            templateUrl:"/tpl/edit.html",
+            controller:"edit"
         })
     }])

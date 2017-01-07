@@ -17,8 +17,8 @@
               没有任何数据,请您添加
         </div>
         <li class="mui-table-view-cell" style="position: relative" ng-repeat="item in data track by item.id">
-            <a style="display: inline-block">
-               {{item.con}}
+            <a style="display: inline-block" href="#!/edit/{{item.id}}">
+               {{item.con|limitTo:20}}...
             </a>
             <span style="position: absolute;right:10px" ng-click="del(item.id)"> 删除</span>
         </li>
