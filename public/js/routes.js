@@ -9,5 +9,11 @@ angular.module("routes",["ngRoute"])
         }).when("/phone",{
                 templateUrl:"/tpl/phone.html",
                 controller:"phone"
-            })
+       }).when("/todo",{
+                templateUrl:"/tpl/todo.html",
+                controller:"todo"
+        }).when("/todo/add",{
+            templateUrl:"/tpl/todoadd.html",
+            controller:"todoadd"
+        })
     }])

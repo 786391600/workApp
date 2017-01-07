@@ -1,0 +1,14 @@
+.addBtn{
+    width:100%;padding: 10px 0;
+    text-align: center;
+    cursor: pointer;
+    border:1px solid #ccc;
+    display: block;
+}
+.addBtn:active{
+    background: #ccc;
+}
+.message{
+    text-align: center;
+    padding:10px 0;
+}

@@ -1,4 +1,4 @@
-angular.module("controllers",[])
+angular.module("controllers",["services"])
 .controller("index",["$scope","$http",function($scope,$http){
     $http({url:"/ajaxNews"}).then(function(data){
        $scope.data=data.data;
@@ -46,5 +46,33 @@ angular.module("controllers",[])
         input.onblur = function () {
             placeholder.style.width = "100%";
         }
-    })
-}])
+    })/*在多个页面当中共享数据  serevices*/
+}]).controller("todo",["$scope","todoData",function($scope,todoData){
+    $scope.data=todoData;
+    $scope.del=function(id){
+        for(var i=0;i< $scope.data.length;i++){
+            if($scope.data[i].id==id){
+                $scope.data.splice(i,1);
+            }
+        }
+
+        localStorage.todo=JSON.stringify($scope.data);
+    }
+}]).controller("todoadd",["$scope","todoData",function($scope,todoData){
+        $scope.data=todoData;
+        $scope.save=function(){
+         var con=document.querySelector(".todocon").innerHTML;
+         var conObj={con:con,id:getMaxId($scope.data)+1};
+         $scope.data.push(conObj);
+         localStorage.todo=JSON.stringify($scope.data);
+         location.href="#!/todo"
+        }
+
+        function getMaxId(con){
+            return con.length>0?con.sort(function(a,b){
+                    return a.id>b.id;
+                })[con.length-1].id:0;
+
+        }
+    }]);
+
