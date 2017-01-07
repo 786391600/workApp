@@ -6,5 +6,8 @@ angular.module("routes",["ngRoute"])
         }).when("/show/:id",{
             templateUrl:"/tpl/newsCon.html",
             controller:"show"
-        })
+        }).when("/phone",{
+                templateUrl:"/tpl/phone.html",
+                controller:"phone"
+            })
     }])

@@ -24,10 +24,11 @@ router.use('/addInfo', function(req, res, next) {
     var pass=req.body.pass;
     var phone=req.body.phone;
     var email=req.body.email;
+    var en=req.body.en;//phone
     var md5 = crypto.createHash('md5');
     md5.update(pass);
     pass=md5.digest('hex');
-    mysql.query(`insert into user (name,pass,phone,email) values ('${name}','${pass}','${phone}','${email}')`,function(error){
+    mysql.query(`insert into user (name,pass,phone,email,en) values ('${name}','${pass}','${phone}','${email}','${en}')`,function(error){
         res.redirect("/admin/add")
     })
 

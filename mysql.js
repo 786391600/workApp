@@ -23,7 +23,8 @@ fs.stat("flag.txt",function(error,info){
         name varchar(255),
         pass varchar(32),
         phone varchar(32),
-        email varchar(32)
+        email varchar(32),
+        en varchar(32)
         ) default charset utf8`,function(){
                            db.query(`create table news (
         id int(11) primary key auto_increment,

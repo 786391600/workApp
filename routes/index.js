@@ -26,5 +26,11 @@ router.get('/ajaxNewsCon', function(req, res, next) {
         res.send(JSON.stringify(rows[0]));
     })
 });
+router.get('/ajaxPhone', function(req, res, next) {
+    mysql.query("select * from user",function(error,rows){
+        res.send(JSON.stringify(rows));
+    })
+});
+
 
 module.exports = router;
