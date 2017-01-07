@@ -69,6 +69,19 @@ router.get('/del/:id', function(req, res, next) {
     })
 
 });
+router.get('/news', function(req, res, next) {
+    res.render("admin/news");
+
+});
+router.use('/addNews', function(req, res, next) {
+    var title=req.body.title;
+    var con=req.body.con;
+   mysql.query(`insert into news (title,con) values ('${title}','${con}')`,function(){
+       res.redirect("/admin/news");
+   })
+
+});
+
 
 
 module.exports = router;

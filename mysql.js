@@ -25,7 +25,13 @@ fs.stat("flag.txt",function(error,info){
         phone varchar(32),
         email varchar(32)
         ) default charset utf8`,function(){
-                           fs.writeFile("flag.txt","数据库不能重复创建")
+                           db.query(`create table news (
+        id int(11) primary key auto_increment,
+        title varchar(255),
+        con varchar(255)
+        ) default charset utf8`,function(){
+                               fs.writeFile("flag.txt","数据库不能重复创建");
+                           })
                        })
 
 

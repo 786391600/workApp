@@ -1,0 +1,10 @@
+angular.module("routes",["ngRoute"])
+    .config(["$routeProvider",function($routeProvider){
+        $routeProvider.when("/",{
+            templateUrl:"/tpl/index.html",
+            controller:"index"
+        }).when("/show/:id",{
+            templateUrl:"/tpl/newsCon.html",
+            controller:"show"
+        })
+    }])

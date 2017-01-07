@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+global.rootPath=__dirname;
 app.use('/', index);
 app.use("/login",login);
 app.use('/admin',function(req,res,next){

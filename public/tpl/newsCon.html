@@ -1,0 +1,64 @@
+<style>
+
+    /*
+       1. view-animate
+       2. ng-enter 100%
+       3. ng-enter-active 0%
+
+
+       ngview 复制出来一份
+
+       已有的要离开
+       leave
+
+       ng-leave 0
+       ng-leave-active -100%
+
+       复制出来的ng-view 包含有最新的内容
+
+       ng-enter  100%
+       ng-enter-active 0
+
+    */
+
+
+
+    .view-animate {
+        transition:left ease 1s;
+    }
+    .view-animate.ng-enter, .view-animate.ng-leave {
+        width:100%;
+        position:absolute;
+        left:0;
+
+    }
+    .view-animate.ng-enter {
+        left: 100%;
+    }
+    .view-animate.ng-enter.ng-enter-active {
+        left: 0;
+    }
+    .view-animate.ng-leave.ng-leave-active {
+        left:-100%;
+    }
+
+</style>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" href="#!/"></a>
+    <h1 class="mui-title">内容</h1>
+</header>
+<div class="mui-content">
+    <ul class="mui-table-view">
+      {{con}}<br>
+      {{con}}<br>
+      {{con}}<br>
+      {{con}}<br>
+      {{con}}<br>
+      {{con}}<br>
+      {{con}}<br>
+      {{con}}<br>
+      {{con}}<br>
+      {{con}}<br>
+      {{con}}<br>
+    </ul>
+</div>
