@@ -134,9 +134,35 @@ angular.module("controllers",["services"])
 
 
 }]).controller("liaotian",["$scope","$http","$filter",function($scope,$http,$filter){
+
+    var socket = io('http://localhost:8080');
+    var name,id;
+    socket.on('connect', function(){
+
+          socket.emit("event",{name:name,id:id})
+    });
+    socket.on("event",function(data){
+        console.log(data);
+        for(var i in data){
+            for(var j=1;j<$scope.data.length;j++){
+                    if(data[i].id==$scope.data[j].id){
+                        $scope.$apply(function(){
+                           $scope.data[j].flag1=true;
+                        })
+                    }
+            }
+        }
+        console.log($scope.data);
+        console.log(1111);
+
+    })
+
     $http({url:"/ajaxPhone"}).then(function(data){
+
         //所有联系人的信息
         var data=data.data;
+        name=data[0].name;
+        id=data[0].id;
         $scope.data=data;
         $scope.type="";
         $scope.filter=function(en){

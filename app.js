@@ -12,6 +12,28 @@ var session = require("express-session");
 
 var ejs=require("ejs");
 var app = express();
+var server = require('http').createServer(app);
+
+//服务器  客户端
+var io = require('socket.io')(server);
+var clients={
+
+};
+var infos={
+
+};
+
+io.on('connection', function(client){
+   client.on("event",function(data){
+        clients[data.id]=client;
+        infos[data.id]={name:data.name,id:data.id}
+       client.emit("event",infos);
+   })
+});
+
+
+
+
 app.use(session({ secret: 'keyboard cat', name:"abc",cookie: {  }}))
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -65,4 +87,5 @@ app.use(function(err, req, res, next) {
 
 });
 
-app.listen(8080)
+server.listen(8080);
+

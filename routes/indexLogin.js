@@ -19,7 +19,7 @@ router.use("/check",function(req,res,next){
                   flag=false;
                   req.session.indexLogin="yes";
                   req.session.name=name;
-                  req.session.id=rows[i].id;
+                  req.session.uid=rows[i].id;
                   res.redirect("/")
                   break;
               }

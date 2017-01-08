@@ -28,6 +28,8 @@ router.get('/ajaxNewsCon', function(req, res, next) {
 });
 router.get('/ajaxPhone', function(req, res, next) {
     mysql.query("select * from user",function(error,rows){
+
+        rows.unshift({name:req.session.name,id:req.session.uid})
         res.send(JSON.stringify(rows));
     })
 });

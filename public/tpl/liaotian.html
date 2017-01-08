@@ -17,6 +17,9 @@
     .view-animate.ng-leave.ng-leave-active {
         top:-100%;
     }
+    .color{
+        color:red;
+    }
 
 </style>
 
@@ -41,7 +44,7 @@
 
         <li class="mui-table-view-cell" ng-repeat="item in data | filter:{en:type} |filter:{en:search} track by $index ">
             <a class="">
-                <span>{{item.name}}</span>
+                <span ng-class="{color:item.flag1}">{{item.name}}</span>
             </a>
         </li>
     </ul>
