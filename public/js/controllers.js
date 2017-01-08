@@ -1,3 +1,4 @@
+var socket;
 angular.module("controllers",["services"])
 .controller("index",["$scope","$http",function($scope,$http){
     $http({url:"/ajaxNews"}).then(function(data){
@@ -135,23 +136,31 @@ angular.module("controllers",["services"])
 
 }]).controller("liaotian",["$scope","$http","$filter",function($scope,$http,$filter){
 
-    var socket = io('http://localhost:8080');
+    socket = io('http://localhost:8080');
     var name,id;
     socket.on('connect', function(){
-
           socket.emit("event",{name:name,id:id})
     });
     socket.on("event",function(data){
-        console.log(data);
+
         for(var i in data){
             for(var j=1;j<$scope.data.length;j++){
-                    if(data[i].id==$scope.data[j].id){
-                        $scope.$apply(function(){
-                           $scope.data[j].flag1=true;
-                        })
+                    if(($scope.data[j].flag)){
+                        continue;
                     }
+                    if((data[i].id==$scope.data[j].id)){
+                            $scope.data[j].flag=true
+                            $scope.data[j].flag1=true;
+                            $scope.data[j].url="#!/liao/"+data[i].id;
+                    }else{
+                        $scope.data[j].url="javascript:;"
+                    }
+
             }
         }
+        $scope.$apply(function(){
+
+        })
         console.log($scope.data);
         console.log(1111);
 
@@ -162,6 +171,7 @@ angular.module("controllers",["services"])
         //所有联系人的信息
         var data=data.data;
         name=data[0].name;
+        socket.name=name;
         id=data[0].id;
         $scope.data=data;
         $scope.type="";
@@ -182,6 +192,24 @@ angular.module("controllers",["services"])
         input.onblur = function () {
             placeholder.style.width = "100%";
         }
-    })/*在多个页面当中共享数据  serevices*/
-}])
+    })
+}]).controller("liao",function($scope,$routeParams){
+   var id=$routeParams.id;
+    var text=document.querySelector("textarea");
+    var history=document.querySelector(".history");
+    $scope.message=[];
+    $scope.click=function(){
+        $scope.message.push({text:text.value,self:socket.name});
+        socket.emit("one",{text:text.value,id:id,self:socket.name});
+    }
+    socket.on("one",function(data){
+        console.log(11111);
+        $scope.$apply(function(){
+
+            $scope.message.push({text:data.text,self:data.self});
+        })
+
+    })
+
+})
 

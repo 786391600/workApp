@@ -38,12 +38,11 @@
     </div>
 
     <ul class="mui-table-view">
-
         <li class="mui-table-view-cell" ng-show="type!==''" ng-click="show()">显示全部</li>
         <li class="mui-table-view-cell" >群聊</li>
 
         <li class="mui-table-view-cell" ng-repeat="item in data | filter:{en:type} |filter:{en:search} track by $index ">
-            <a class="">
+            <a class="" href="{{item.url}}">
                 <span ng-class="{color:item.flag1}">{{item.name}}</span>
             </a>
         </li>
