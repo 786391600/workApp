@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var login = require('./routes/login');
+var indexLogin = require('./routes/indexLogin');
 var session = require("express-session");
 
 var ejs=require("ejs");
@@ -24,7 +25,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 global.rootPath=__dirname;
-app.use('/', index);
+
+app.use("/indexLogin",indexLogin);
+
+app.use('/',function(req,res,next){
+    if(req.session.indexLogin=="yes"){
+        next();
+    }else{
+       res.sendFile(rootPath+"/views/index/login.html");
+    }
+},index);
+
 app.use("/login",login);
 app.use('/admin',function(req,res,next){
     if(req.session.login=="yes"){

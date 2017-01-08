@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+  <div>
+  </div>
+  <input type="text">
+  <button type="button">发送</button>
+<script>
+   var div=document.querySelector("div");
+   var input=document.querySelector("input");
+   var btn=document.querySelector("button");
+   var name=Math.random().toFixed(4);
+   var socket=new WebSocket("ws://localhost:8080");
+   socket.onopen=function(){
+       var li=document.createElement("li");
+       li.innerHTML="连接成功....";
+       div.appendChild(li);
+   }
+
+    socket.onmessage=function(data){
+        console.log(data);
+        var li=document.createElement("li");
+        li.innerHTML=JSON.parse(data.data).con;
+        div.appendChild(li);
+    }
+
+    btn.onclick=function(){
+        var obj={name:name,con:input.value}
+        socket.send(JSON.stringify(obj));
+    }
+
+</script>
+</body>
+</html>

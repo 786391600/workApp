@@ -133,5 +133,29 @@ angular.module("controllers",["services"])
 
 
 
+}]).controller("liaotian",["$scope","$http","$filter",function($scope,$http,$filter){
+    $http({url:"/ajaxPhone"}).then(function(data){
+        //所有联系人的信息
+        var data=data.data;
+        $scope.data=data;
+        $scope.type="";
+        $scope.filter=function(en){
+            $scope.type=en;
+        }
+        $scope.show=function(){
+            $scope.type="";
+        }
+
+        var placeholder = document.querySelector(".mui-placeholder");
+        var input = document.querySelector(".mui-input-clear");
+        placeholder.onclick = function () {
+            this.style.width = "20px";
+            input.focus();
+        }
+
+        input.onblur = function () {
+            placeholder.style.width = "100%";
+        }
+    })/*在多个页面当中共享数据  serevices*/
 }])
 
